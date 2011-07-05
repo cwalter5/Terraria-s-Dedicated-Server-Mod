@@ -66,7 +66,7 @@ namespace Terraria_Server.Messages
                 }
 
                 player.team = teamIndex;
-                for (int i = 0; i < 255; i++)
+                for (int i = 0; i < Main.MAX_PLAYERS; i++)
                 {
                     if (i == whoAmI
                         || (currentTeam > 0 && player.team == currentTeam)

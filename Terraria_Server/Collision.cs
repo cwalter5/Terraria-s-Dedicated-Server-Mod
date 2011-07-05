@@ -78,15 +78,17 @@ namespace Terraria_Server
             }
             return true;
         }
-        public static bool EmptyTile(int i, int j, bool ignoreTiles = false)
+        public static bool EmptyTile(int x, int y, bool ignoreTiles = false)
         {
-            Rectangle rectangle = new Rectangle(i * 16, j * 16, 16, 16);
-            if (Main.tile[i, j].Active && !ignoreTiles)
+            Rectangle rectangle = new Rectangle(x * 16, y * 16, 16, 16);
+            if (Main.tile[x, y].Active && !ignoreTiles)
             {
                 return false;
             }
-            foreach(Player player in Main.players)
+            Player player;
+            for (int i = 0; i < 255; i++ )
             {
+                player = Main.players[i];
                 if (player.Active && rectangle.Intersects(new Rectangle((int)player.Position.X, (int)player.Position.Y, player.width, player.height)))
                 {
                     return false;

@@ -19,10 +19,8 @@ namespace Terraria_Server.Messages
 
         public void Process(int start, int length, int num, int whoAmI, byte[] readBuffer, byte bufferData)
         {
-            int num14 = BitConverter.ToInt32(readBuffer, start + 1);
-            string string4 = Encoding.ASCII.GetString(readBuffer, start + 5, length - 5);
-            Netplay.clientSock.statusMax += num14;
-            Netplay.clientSock.statusText = string4;
+            Netplay.clientSock.statusMax += BitConverter.ToInt32(readBuffer, start + 1);
+            Netplay.clientSock.statusText = Encoding.ASCII.GetString(readBuffer, start + 5, length - 5);
         }
     }
 }

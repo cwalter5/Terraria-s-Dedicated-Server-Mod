@@ -17,8 +17,6 @@ namespace Terraria_Server.Messages
         public void Process(int start, int length, int num, int whoAmI, byte[] readBuffer, byte bufferData)
         {
             short itemIndex = BitConverter.ToInt16(readBuffer, num);
-            num += 2;
-            byte owner = readBuffer[num];
             Item item = Main.item[(int)itemIndex];
 
             if (Main.netMode == 2)
@@ -34,6 +32,9 @@ namespace Terraria_Server.Messages
             }
             else
             {
+                num += 2;
+                byte owner = readBuffer[num];
+
                 item.Owner = (int)owner;
                 item.KeepTime = ((int)owner == Main.myPlayer) ? 15 : 0;
             }

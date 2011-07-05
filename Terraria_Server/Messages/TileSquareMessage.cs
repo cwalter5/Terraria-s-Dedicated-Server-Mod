@@ -30,18 +30,18 @@ namespace Terraria_Server.Messages
                     }
                     Tile tile = Main.tile[x, y];
 
-                    byte b9 = readBuffer[num++];
+                    byte bitFlags = readBuffer[num++];
 
                     bool wasActive = tile.Active;
 
-                    tile.Active = ((b9 & 1) == 1);
+                    tile.Active = ((bitFlags & Tile.ACTIVE_BIT) == Tile.ACTIVE_BIT);
 
-                    if ((b9 & 2) == 2)
+                    if ((bitFlags & Tile.LIGHT_BIT) == Tile.LIGHT_BIT)
                     {
                         tile.lighted = true;
                     }
 
-                    if ((b9 & 4) == 4)
+                    if ((bitFlags & Tile.WALL_BIT) == Tile.WALL_BIT)
                     {
                         tile.wall = 1;
                     }
@@ -50,7 +50,7 @@ namespace Terraria_Server.Messages
                         tile.wall = 0;
                     }
 
-                    if ((b9 & 8) == 8)
+                    if ((bitFlags & Tile.LIQUID_BIT) == Tile.LIQUID_BIT)
                     {
                         tile.liquid = 1;
                     }
@@ -85,8 +85,7 @@ namespace Terraria_Server.Messages
                     if (tile.liquid > 0)
                     {
                         tile.liquid = readBuffer[num++];
-                        byte b10 = readBuffer[num++];
-                        tile.lava = (b10 == 1);
+                        tile.lava = (readBuffer[num++] == 1);
                     }
                 }
             }

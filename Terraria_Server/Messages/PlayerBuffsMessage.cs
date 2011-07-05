@@ -27,7 +27,7 @@ namespace Terraria_Server.Messages
             }
 
             Player player = Main.players[playerIndex];
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Player.MAX_BUFF; i++)
             {
                 player.buffType[i] = (int)readBuffer[num++];
                 if (player.buffType[i] > 0)

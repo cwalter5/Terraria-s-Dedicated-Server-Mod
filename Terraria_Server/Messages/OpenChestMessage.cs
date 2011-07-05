@@ -31,13 +31,8 @@ namespace Terraria_Server.Messages
             chestEvent.Sender = Main.players[whoAmI];
             chestEvent.ID = chestIndex;
             Program.server.getPluginManager().processHook(Hooks.PLAYER_CHEST, chestEvent);
-            
-            if (chestEvent.Cancelled)
-            {
-                return;
-            }
 
-            if (chestIndex > -1 && Chest.UsingChest(chestIndex) == -1)
+            if (!chestEvent.Cancelled && chestIndex > -1 && Chest.UsingChest(chestIndex) == -1)
             {
                 for (int i = 0; i < Chest.MAX_ITEMS; i++)
                 {
@@ -45,7 +40,6 @@ namespace Terraria_Server.Messages
                 }
                 NetMessage.SendData(33, whoAmI, -1, "", chestIndex);
                 Main.players[whoAmI].chest = chestIndex;
-                return;
             }
         }
     }

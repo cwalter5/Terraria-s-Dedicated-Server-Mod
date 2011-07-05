@@ -12,14 +12,16 @@ namespace Terraria_Server
 {
 	public class Player : Sender
 	{
+        public const int MAX_BUFF = 10;
+
         private string ipAddress = null;
         private bool godMode = false;
 
         public bool enemySpawns;
         public int heldProj = -1;
         public bool killGuide;
-        public int[] buffType = new int[10];
-        public int[] buffTime = new int[10];
+        public int[] buffType = new int[MAX_BUFF];
+        public int[] buffTime = new int[MAX_BUFF];
         public bool hardCore;
 		public bool pvpDeath;
 		public bool zoneDungeon;
@@ -621,9 +623,9 @@ namespace Terraria_Server
                                     int num15 = Dust.NewDust(arg_1561_0, arg_1561_1, arg_1561_2, arg_1561_3, arg_1561_4, arg_1561_5, arg_1561_6, newColor, 2f);
                                     Main.dust[num15].noGravity = true;
                                     Dust expr_1583_cp_0 = Main.dust[num15];
-                                    expr_1583_cp_0.velocity.X = expr_1583_cp_0.velocity.X - this.Velocity.X * 0.5f;
+                                    expr_1583_cp_0.Velocity.X = expr_1583_cp_0.Velocity.X - this.Velocity.X * 0.5f;
                                     Dust expr_15AD_cp_0 = Main.dust[num15];
-                                    expr_15AD_cp_0.velocity.Y = expr_15AD_cp_0.velocity.Y - this.Velocity.Y * 0.5f;
+                                    expr_15AD_cp_0.Velocity.Y = expr_15AD_cp_0.Velocity.Y - this.Velocity.Y * 0.5f;
                                 }
                             }
                         }
@@ -651,8 +653,8 @@ namespace Terraria_Server
                                 Color newColor = new Color();
                                 int num16 = Dust.NewDust(arg_1701_0, arg_1701_1, arg_1701_2, arg_1701_3, arg_1701_4, arg_1701_5, arg_1701_6, newColor, 1.4f);
                                 Main.dust[num16].noGravity = true;
-                                Main.dust[num16].velocity.X = this.Velocity.X * 0.25f;
-                                Main.dust[num16].velocity.Y = this.Velocity.Y * 0.25f;
+                                Main.dust[num16].Velocity.X = this.Velocity.X * 0.25f;
+                                Main.dust[num16].Velocity.Y = this.Velocity.Y * 0.25f;
                             }
                         }
                         if (this.head == 9 && this.body == 9 && this.legs == 9)
@@ -674,9 +676,9 @@ namespace Terraria_Server
                                     int num18 = Dust.NewDust(arg_1847_0, arg_1847_1, arg_1847_2, arg_1847_3, arg_1847_4, arg_1847_5, arg_1847_6, newColor, 2f);
                                     Main.dust[num18].noGravity = true;
                                     Dust expr_1869_cp_0 = Main.dust[num18];
-                                    expr_1869_cp_0.velocity.X = expr_1869_cp_0.velocity.X - this.Velocity.X * 0.5f;
+                                    expr_1869_cp_0.Velocity.X = expr_1869_cp_0.Velocity.X - this.Velocity.X * 0.5f;
                                     Dust expr_1893_cp_0 = Main.dust[num18];
-                                    expr_1893_cp_0.velocity.Y = expr_1893_cp_0.velocity.Y - this.Velocity.Y * 0.5f;
+                                    expr_1893_cp_0.Velocity.Y = expr_1893_cp_0.Velocity.Y - this.Velocity.Y * 0.5f;
                                 }
                             }
                         }
@@ -756,8 +758,8 @@ namespace Terraria_Server
                                             int arg_1B6C_6 = 50;
                                             Color newColor = new Color();
                                             int num19 = Dust.NewDust(arg_1B6C_0, arg_1B6C_1, arg_1B6C_2, arg_1B6C_3, arg_1B6C_4, arg_1B6C_5, arg_1B6C_6, newColor, 1.5f);
-                                            Main.dust[num19].velocity.X = Main.dust[num19].velocity.X * 0.2f;
-                                            Main.dust[num19].velocity.Y = Main.dust[num19].velocity.Y * 0.2f;
+                                            Main.dust[num19].Velocity.X = Main.dust[num19].Velocity.X * 0.2f;
+                                            Main.dust[num19].Velocity.Y = Main.dust[num19].Velocity.Y * 0.2f;
                                         }
                                     }
                                     else
@@ -791,8 +793,8 @@ namespace Terraria_Server
                                                 int arg_1D34_6 = 50;
                                                 Color newColor = new Color();
                                                 int num20 = Dust.NewDust(arg_1D34_0, arg_1D34_1, arg_1D34_2, arg_1D34_3, arg_1D34_4, arg_1D34_5, arg_1D34_6, newColor, 1.5f);
-                                                Main.dust[num20].velocity.X = Main.dust[num20].velocity.X * 0.2f;
-                                                Main.dust[num20].velocity.Y = Main.dust[num20].velocity.Y * 0.2f;
+                                                Main.dust[num20].Velocity.X = Main.dust[num20].Velocity.X * 0.2f;
+                                                Main.dust[num20].Velocity.Y = Main.dust[num20].Velocity.Y * 0.2f;
                                             }
                                         }
                                         else
@@ -891,18 +893,18 @@ namespace Terraria_Server
                                                 int arg_2064_6 = 100;
                                                 Color newColor = new Color();
                                                 int num22 = Dust.NewDust(arg_2064_0, arg_2064_1, arg_2064_2, arg_2064_3, arg_2064_4, arg_2064_5, arg_2064_6, newColor, 1.5f);
-                                                Main.dust[num22].velocity.X = Main.dust[num22].velocity.X * 0.5f - this.Velocity.X * 0.1f;
-                                                Main.dust[num22].velocity.Y = Main.dust[num22].velocity.Y * 0.5f - this.Velocity.Y * 0.3f;
+                                                Main.dust[num22].Velocity.X = Main.dust[num22].Velocity.X * 0.5f - this.Velocity.X * 0.1f;
+                                                Main.dust[num22].Velocity.Y = Main.dust[num22].Velocity.Y * 0.5f - this.Velocity.Y * 0.3f;
                                             }
                                             int num23 = Gore.NewGore(new Vector2(this.Position.X + (float)(this.width / 2) - 16f, this.Position.Y + (float)this.height - 16f), new Vector2(-this.Velocity.X, -this.Velocity.Y), Main.rand.Next(11, 14));
-                                            Main.gore[num23].velocity.X = Main.gore[num23].velocity.X * 0.1f - this.Velocity.X * 0.1f;
-                                            Main.gore[num23].velocity.Y = Main.gore[num23].velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
+                                            Main.gore[num23].Velocity.X = Main.gore[num23].Velocity.X * 0.1f - this.Velocity.X * 0.1f;
+                                            Main.gore[num23].Velocity.Y = Main.gore[num23].Velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
                                             num23 = Gore.NewGore(new Vector2(this.Position.X - 36f, this.Position.Y + (float)this.height - 16f), new Vector2(-this.Velocity.X, -this.Velocity.Y), Main.rand.Next(11, 14));
-                                            Main.gore[num23].velocity.X = Main.gore[num23].velocity.X * 0.1f - this.Velocity.X * 0.1f;
-                                            Main.gore[num23].velocity.Y = Main.gore[num23].velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
+                                            Main.gore[num23].Velocity.X = Main.gore[num23].Velocity.X * 0.1f - this.Velocity.X * 0.1f;
+                                            Main.gore[num23].Velocity.Y = Main.gore[num23].Velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
                                             num23 = Gore.NewGore(new Vector2(this.Position.X + (float)this.width + 4f, this.Position.Y + (float)this.height - 16f), new Vector2(-this.Velocity.X, -this.Velocity.Y), Main.rand.Next(11, 14));
-                                            Main.gore[num23].velocity.X = Main.gore[num23].velocity.X * 0.1f - this.Velocity.X * 0.1f;
-                                            Main.gore[num23].velocity.Y = Main.gore[num23].velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
+                                            Main.gore[num23].Velocity.X = Main.gore[num23].Velocity.X * 0.1f - this.Velocity.X * 0.1f;
+                                            Main.gore[num23].Velocity.Y = Main.gore[num23].Velocity.Y * 0.1f - this.Velocity.Y * 0.05f;
                                         }
                                     }
                                 }
@@ -925,8 +927,8 @@ namespace Terraria_Server
                                 int arg_2456_6 = 100;
                                 Color newColor = new Color();
                                 int num24 = Dust.NewDust(arg_2456_0, arg_2456_1, arg_2456_2, arg_2456_3, arg_2456_4, arg_2456_5, arg_2456_6, newColor, 1.5f);
-                                Main.dust[num24].velocity.X = Main.dust[num24].velocity.X * 0.5f - this.Velocity.X * 0.1f;
-                                Main.dust[num24].velocity.Y = Main.dust[num24].velocity.Y * 0.5f - this.Velocity.Y * 0.3f;
+                                Main.dust[num24].Velocity.X = Main.dust[num24].Velocity.X * 0.5f - this.Velocity.X * 0.1f;
+                                Main.dust[num24].Velocity.Y = Main.dust[num24].Velocity.Y * 0.5f - this.Velocity.Y * 0.3f;
                             }
                             if (this.Velocity.Y > -Player.jumpSpeed && this.Velocity.Y != 0f)
                             {
@@ -975,8 +977,8 @@ namespace Terraria_Server
                                         Color newColor = new Color();
                                         int num27 = Dust.NewDust(arg_2650_0, arg_2650_1, arg_2650_2, arg_2650_3, arg_2650_4, arg_2650_5, arg_2650_6, newColor, 2.5f);
                                         Main.dust[num27].noGravity = true;
-                                        Main.dust[num27].velocity.X = Main.dust[num27].velocity.X * 1f - 2f - this.Velocity.X * 0.3f;
-                                        Main.dust[num27].velocity.Y = Main.dust[num27].velocity.Y * 1f + 2f - this.Velocity.Y * 0.3f;
+                                        Main.dust[num27].Velocity.X = Main.dust[num27].Velocity.X * 1f - 2f - this.Velocity.X * 0.3f;
+                                        Main.dust[num27].Velocity.Y = Main.dust[num27].Velocity.Y * 1f + 2f - this.Velocity.Y * 0.3f;
                                     }
                                     else
                                     {
@@ -990,8 +992,8 @@ namespace Terraria_Server
                                         Color newColor = new Color();
                                         int num28 = Dust.NewDust(arg_2743_0, arg_2743_1, arg_2743_2, arg_2743_3, arg_2743_4, arg_2743_5, arg_2743_6, newColor, 2.5f);
                                         Main.dust[num28].noGravity = true;
-                                        Main.dust[num28].velocity.X = Main.dust[num28].velocity.X * 1f + 2f - this.Velocity.X * 0.3f;
-                                        Main.dust[num28].velocity.Y = Main.dust[num28].velocity.Y * 1f + 2f - this.Velocity.Y * 0.3f;
+                                        Main.dust[num28].Velocity.X = Main.dust[num28].Velocity.X * 1f + 2f - this.Velocity.X * 0.3f;
+                                        Main.dust[num28].Velocity.Y = Main.dust[num28].Velocity.Y * 1f + 2f - this.Velocity.Y * 0.3f;
                                     }
                                 }
                                 if (this.rocketDelay == 0)
@@ -1495,7 +1497,7 @@ namespace Terraria_Server
                                     this.grapCount = 0;
                                     for (int num54 = 0; num54 < 1000; num54++)
                                     {
-                                        if (Main.projectile[num54].active && Main.projectile[num54].Owner == i && Main.projectile[num54].aiStyle == 7)
+                                        if (Main.projectile[num54].Active && Main.projectile[num54].Owner == i && Main.projectile[num54].aiStyle == 7)
                                         {
                                             Main.projectile[num54].Kill();
                                         }
@@ -1661,9 +1663,9 @@ namespace Terraria_Server
                                             Color newColor = new Color();
                                             int num59 = Dust.NewDust(arg_4340_0, arg_4340_1, arg_4340_2, arg_4340_3, arg_4340_4, arg_4340_5, arg_4340_6, newColor, 1f);
                                             Dust expr_4354_cp_0 = Main.dust[num59];
-                                            expr_4354_cp_0.velocity.Y = expr_4354_cp_0.velocity.Y - 4f;
+                                            expr_4354_cp_0.Velocity.Y = expr_4354_cp_0.Velocity.Y - 4f;
                                             Dust expr_4372_cp_0 = Main.dust[num59];
-                                            expr_4372_cp_0.velocity.X = expr_4372_cp_0.velocity.X * 2.5f;
+                                            expr_4372_cp_0.Velocity.X = expr_4372_cp_0.Velocity.X * 2.5f;
                                             Main.dust[num59].scale = 1.3f;
                                             Main.dust[num59].alpha = 100;
                                             Main.dust[num59].noGravity = true;
@@ -1683,9 +1685,9 @@ namespace Terraria_Server
                                             Color newColor = new Color();
                                             int num61 = Dust.NewDust(arg_4446_0, arg_4446_1, arg_4446_2, arg_4446_3, arg_4446_4, arg_4446_5, arg_4446_6, newColor, 1f);
                                             Dust expr_445A_cp_0 = Main.dust[num61];
-                                            expr_445A_cp_0.velocity.Y = expr_445A_cp_0.velocity.Y - 1.5f;
+                                            expr_445A_cp_0.Velocity.Y = expr_445A_cp_0.Velocity.Y - 1.5f;
                                             Dust expr_4478_cp_0 = Main.dust[num61];
-                                            expr_4478_cp_0.velocity.X = expr_4478_cp_0.velocity.X * 2.5f;
+                                            expr_4478_cp_0.Velocity.X = expr_4478_cp_0.Velocity.X * 2.5f;
                                             Main.dust[num61].scale = 1.3f;
                                             Main.dust[num61].alpha = 100;
                                             Main.dust[num61].noGravity = true;
@@ -1721,9 +1723,9 @@ namespace Terraria_Server
                                             Color newColor = new Color();
                                             int num63 = Dust.NewDust(arg_4599_0, arg_4599_1, arg_4599_2, arg_4599_3, arg_4599_4, arg_4599_5, arg_4599_6, newColor, 1f);
                                             Dust expr_45AD_cp_0 = Main.dust[num63];
-                                            expr_45AD_cp_0.velocity.Y = expr_45AD_cp_0.velocity.Y - 4f;
+                                            expr_45AD_cp_0.Velocity.Y = expr_45AD_cp_0.Velocity.Y - 4f;
                                             Dust expr_45CB_cp_0 = Main.dust[num63];
-                                            expr_45CB_cp_0.velocity.X = expr_45CB_cp_0.velocity.X * 2.5f;
+                                            expr_45CB_cp_0.Velocity.X = expr_45CB_cp_0.Velocity.X * 2.5f;
                                             Main.dust[num63].scale = 1.3f;
                                             Main.dust[num63].alpha = 100;
                                             Main.dust[num63].noGravity = true;
@@ -1743,9 +1745,9 @@ namespace Terraria_Server
                                             Color newColor = new Color();
                                             int num65 = Dust.NewDust(arg_469F_0, arg_469F_1, arg_469F_2, arg_469F_3, arg_469F_4, arg_469F_5, arg_469F_6, newColor, 1f);
                                             Dust expr_46B3_cp_0 = Main.dust[num65];
-                                            expr_46B3_cp_0.velocity.Y = expr_46B3_cp_0.velocity.Y - 1.5f;
+                                            expr_46B3_cp_0.Velocity.Y = expr_46B3_cp_0.Velocity.Y - 1.5f;
                                             Dust expr_46D1_cp_0 = Main.dust[num65];
-                                            expr_46D1_cp_0.velocity.X = expr_46D1_cp_0.velocity.X * 2.5f;
+                                            expr_46D1_cp_0.Velocity.X = expr_46D1_cp_0.Velocity.X * 2.5f;
                                             Main.dust[num65].scale = 1.3f;
                                             Main.dust[num65].alpha = 100;
                                             Main.dust[num65].noGravity = true;
@@ -2919,7 +2921,7 @@ namespace Terraria_Server
                 {
                     for (int j = 0; j < Main.maxProjectiles; j++)
                     {
-                        if (Main.projectile[j].active && Main.projectile[j].Owner == Main.myPlayer && Main.projectile[j].type == selectedItem.Shoot)
+                        if (Main.projectile[j].Active && Main.projectile[j].Owner == Main.myPlayer && Main.projectile[j].type == selectedItem.Shoot)
                         {
                             flag = false;
                         }
@@ -3006,7 +3008,7 @@ namespace Terraria_Server
                 {
                     for (int j = 0; j < 1000; j++)
                     {
-                        if (Main.projectile[j].active && Main.projectile[j].Owner == i && Main.projectile[j].type == selectedItem.Shoot)
+                        if (Main.projectile[j].Active && Main.projectile[j].Owner == i && Main.projectile[j].type == selectedItem.Shoot)
                         {
                             Main.projectile[j].Kill();
                         }
@@ -3181,7 +3183,7 @@ namespace Terraria_Server
                         grapCount = 0;
                         for (int j = 0; j < Main.maxProjectiles; j++)
                         {
-                            if (Main.projectile[j].active && Main.projectile[j].Owner == i)
+                            if (Main.projectile[j].Active && Main.projectile[j].Owner == i)
                             {
                                 if (Main.projectile[j].type == 13)
                                 {
@@ -3971,9 +3973,9 @@ namespace Terraria_Server
                                 int num20 = Dust.NewDust(arg_4BF2_0, arg_4BF2_1, arg_4BF2_2, arg_4BF2_3, arg_4BF2_4, arg_4BF2_5, arg_4BF2_6, newColor, 2.5f);
                                 Main.dust[num20].noGravity = true;
                                 Dust expr_4C14_cp_0 = Main.dust[num20];
-                                expr_4C14_cp_0.velocity.X = expr_4C14_cp_0.velocity.X * 2f;
+                                expr_4C14_cp_0.Velocity.X = expr_4C14_cp_0.Velocity.X * 2f;
                                 Dust expr_4C32_cp_0 = Main.dust[num20];
-                                expr_4C32_cp_0.velocity.Y = expr_4C32_cp_0.velocity.Y * 2f;
+                                expr_4C32_cp_0.Velocity.Y = expr_4C32_cp_0.Velocity.Y * 2f;
                             }
                         }
                         if (selectedItem.Type == 122 || selectedItem.Type == 217)
@@ -4002,9 +4004,9 @@ namespace Terraria_Server
                             int num20 = Dust.NewDust(arg_4D91_0, arg_4D91_1, arg_4D91_2, arg_4D91_3, arg_4D91_4, arg_4D91_5, arg_4D91_6, newColor, 2f);
                             Main.dust[num20].noGravity = true;
                             Dust expr_4DB3_cp_0 = Main.dust[num20];
-                            expr_4DB3_cp_0.velocity.X = expr_4DB3_cp_0.velocity.X / 2f;
+                            expr_4DB3_cp_0.Velocity.X = expr_4DB3_cp_0.Velocity.X / 2f;
                             Dust expr_4DD1_cp_0 = Main.dust[num20];
-                            expr_4DD1_cp_0.velocity.Y = expr_4DD1_cp_0.velocity.Y / 2f;
+                            expr_4DD1_cp_0.Velocity.Y = expr_4DD1_cp_0.Velocity.Y / 2f;
                         }
 
                         if (Main.myPlayer == i)
@@ -4179,7 +4181,7 @@ namespace Terraria_Server
                         this.grapCount = 0;
                         for (int j = 0; j < 1000; j++)
                         {
-                            if (Main.projectile[j].active && Main.projectile[j].Owner == i)
+                            if (Main.projectile[j].Active && Main.projectile[j].Owner == i)
                             {
                                 if (Main.projectile[j].aiStyle == 7)
                                 {

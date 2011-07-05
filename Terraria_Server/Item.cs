@@ -4,17 +4,14 @@ using Terraria_Server.Misc;
 
 namespace Terraria_Server
 {
-    public class Item
+    public class Item : Entity
     {
         public static int potionDelay = 720;
         public bool Wet;
         public byte WetCount;
         public bool LavaWet;
-        public Vector2 Position;
-        public Vector2 Velocity;
         public int Width;
         public int Height;
-        public bool Active;
         public int NoGrabDelay;
         public bool BeingGrabbed;
         public int SpawnTime;
@@ -5909,9 +5906,9 @@ namespace Terraria_Server
                                     {
                                         int num3 = Dust.NewDust(new Vector2(this.Position.X - 6f, this.Position.Y + (float)(this.Height / 2) - 8f), this.Width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
                                         Dust expr_1EC_cp_0 = Main.dust[num3];
-                                        expr_1EC_cp_0.velocity.Y = expr_1EC_cp_0.velocity.Y - 4f;
+                                        expr_1EC_cp_0.Velocity.Y = expr_1EC_cp_0.Velocity.Y - 4f;
                                         Dust expr_20A_cp_0 = Main.dust[num3];
-                                        expr_20A_cp_0.velocity.X = expr_20A_cp_0.velocity.X * 2.5f;
+                                        expr_20A_cp_0.Velocity.X = expr_20A_cp_0.Velocity.X * 2.5f;
                                         Main.dust[num3].scale = 1.3f;
                                         Main.dust[num3].alpha = 100;
                                         Main.dust[num3].noGravity = true;
@@ -5923,9 +5920,9 @@ namespace Terraria_Server
                                     {
                                         int num4 = Dust.NewDust(new Vector2(this.Position.X - 6f, this.Position.Y + (float)(this.Height / 2) - 8f), this.Width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
                                         Dust expr_2F2_cp_0 = Main.dust[num4];
-                                        expr_2F2_cp_0.velocity.Y = expr_2F2_cp_0.velocity.Y - 1.5f;
+                                        expr_2F2_cp_0.Velocity.Y = expr_2F2_cp_0.Velocity.Y - 1.5f;
                                         Dust expr_310_cp_0 = Main.dust[num4];
-                                        expr_310_cp_0.velocity.X = expr_310_cp_0.velocity.X * 2.5f;
+                                        expr_310_cp_0.Velocity.X = expr_310_cp_0.Velocity.X * 2.5f;
                                         Main.dust[num4].scale = 1.3f;
                                         Main.dust[num4].alpha = 100;
                                         Main.dust[num4].noGravity = true;
@@ -6063,7 +6060,8 @@ namespace Terraria_Server
             {
                 return 0;
             }
-            int num = 200;
+
+            int itemIndex = 200;
             Main.item[200] = new Item();
             if (Main.netMode != 1)
             {
@@ -6071,47 +6069,50 @@ namespace Terraria_Server
                 {
                     if (!Main.item[i].Active)
                     {
-                        num = i;
+                        itemIndex = i;
                         break;
                     }
                 }
-            }
-            if (num == 200 && Main.netMode != 1)
-            {
-                int num2 = 0;
-                for (int j = 0; j < 200; j++)
+
+                if (itemIndex == 200)
                 {
-                    if (Main.item[j].SpawnTime > num2)
+                    int num2 = 0;
+                    for (int j = 0; j < 200; j++)
                     {
-                        num2 = Main.item[j].SpawnTime;
-                        num = j;
+                        if (Main.item[j].SpawnTime > num2)
+                        {
+                            num2 = Main.item[j].SpawnTime;
+                            itemIndex = j;
+                        }
                     }
                 }
             }
-            Main.item[num] = new Item();
-            Main.item[num].SetDefaults(Type, false);
-            Main.item[num].Position.X = (float)(X + Width / 2 - Main.item[num].Width / 2);
-            Main.item[num].Position.Y = (float)(Y + Height / 2 - Main.item[num].Height / 2);
-            Main.item[num].Wet = Collision.WetCollision(Main.item[num].Position, Main.item[num].Width, Main.item[num].Height);
-            Main.item[num].Velocity.X = (float)Main.rand.Next(-20, 21) * 0.1f;
-            Main.item[num].Velocity.Y = (float)Main.rand.Next(-30, -10) * 0.1f;
-            Main.item[num].Active = true;
-            Main.item[num].SpawnTime = 0;
-            Main.item[num].Stack = Stack;
+            Main.item[itemIndex] = new Item();
+            Main.item[itemIndex].SetDefaults(Type, false);
+            Main.item[itemIndex].Position.X = (float)(X + Width / 2 - Main.item[itemIndex].Width / 2);
+            Main.item[itemIndex].Position.Y = (float)(Y + Height / 2 - Main.item[itemIndex].Height / 2);
+            Main.item[itemIndex].Wet = Collision.WetCollision(Main.item[itemIndex].Position, Main.item[itemIndex].Width, Main.item[itemIndex].Height);
+            Main.item[itemIndex].Velocity.X = (float)Main.rand.Next(-20, 21) * 0.1f;
+            Main.item[itemIndex].Velocity.Y = (float)Main.rand.Next(-30, -10) * 0.1f;
+            Main.item[itemIndex].Active = true;
+            Main.item[itemIndex].SpawnTime = 0;
+            Main.item[itemIndex].Stack = Stack;
+            
             if (Main.netMode == 2 && !noBroadcast)
             {
-                NetMessage.SendData(21, -1, -1, "", num);
-                Main.item[num].FindOwner(num);
+                NetMessage.SendData(21, -1, -1, "", itemIndex);
+                Main.item[itemIndex].FindOwner(itemIndex);
             }
             else
             {
                 if (Main.netMode == 0)
                 {
-                    Main.item[num].Owner = Main.myPlayer;
+                    Main.item[itemIndex].Owner = Main.myPlayer;
                 }
             }
-            return num;
+            return itemIndex;
         }
+
         public void FindOwner(int whoAmI)
         {
             if (this.KeepTime > 0)

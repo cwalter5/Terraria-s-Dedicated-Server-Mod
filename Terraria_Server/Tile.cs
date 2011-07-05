@@ -3,6 +3,11 @@ namespace Terraria_Server
 {
 	public class Tile
 	{
+        public const int ACTIVE_BIT = 1;
+        public const int LIGHT_BIT = 2;
+        public const int WALL_BIT = 4;
+        public const int LIQUID_BIT = 8;
+
 		public bool Active;
 		public bool lighted;
 		public byte type;

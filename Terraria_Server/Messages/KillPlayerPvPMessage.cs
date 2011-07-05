@@ -39,9 +39,7 @@ namespace Terraria_Server.Messages
             string deathText = Encoding.ASCII.GetString(readBuffer, num, length - num + start);
             bool pvp = (pvpFlag != 0);
 
-            PlayerDeathEvent pDeath = new PlayerDeathEvent();
-            pDeath.DeathMessage = deathText;
-            pDeath.Sender = Main.players[playerIndex];
+            PlayerDeathEvent pDeath = new PlayerDeathEvent { DeathMessage = deathText, Sender = Main.players[playerIndex] };
             Program.server.getPluginManager().processHook(Hooks.PLAYER_DEATH, pDeath);
             if (pDeath.Cancelled)
             {

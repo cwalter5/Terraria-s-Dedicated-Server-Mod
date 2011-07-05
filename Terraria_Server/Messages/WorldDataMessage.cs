@@ -5,6 +5,11 @@ namespace Terraria_Server.Messages
 {
     public class WorldDataMessage : IMessage
     {
+        private const int ORB_SMASHED_BIT = 1;
+        private const int BOSS1_BIT = 2;
+        private const int BOSS2_BIT = 4;
+        private const int BOSS3_BIT = 8;
+
         public Packet GetPacket()
         {
             return Packet.WORLD_DATA;
@@ -39,21 +44,21 @@ namespace Terraria_Server.Messages
             Main.worldID = BitConverter.ToInt32(readBuffer, num);
             num += 4;
 
-            byte b2 = readBuffer[num++];
-            if ((b2 & 1) == 1)
+            byte bitFlags = readBuffer[num++];
+            if ((bitFlags & ORB_SMASHED_BIT) == ORB_SMASHED_BIT)
             {
                 WorldGen.shadowOrbSmashed = true;
             }
-            if ((b2 & 2) == 2)
+            if ((bitFlags & BOSS1_BIT) == BOSS1_BIT)
             {
                 NPC.downedBoss1 = true;
             }
-            if ((b2 & 4) == 4)
+            if ((bitFlags & BOSS2_BIT) == BOSS2_BIT)
             {
                 NPC.downedBoss2 = true;
             }
 
-            if ((b2 & 8) == 8)
+            if ((bitFlags & BOSS3_BIT) == BOSS3_BIT)
             {
                 NPC.downedBoss3 = true;
             }

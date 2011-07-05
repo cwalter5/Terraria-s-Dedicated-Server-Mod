@@ -23,20 +23,21 @@ namespace Terraria_Server.Messages
             int contentsIndex = (int)readBuffer[num++];
             int stackSize = (int)readBuffer[num++];
 
-            string string8 = Encoding.ASCII.GetString(readBuffer, num, length - num + start);
+            string itemName = Encoding.ASCII.GetString(readBuffer, num, length - num + start);
             
             if (Main.chest[chestIndex] == null)
             {
                 Main.chest[chestIndex] = new Chest();
             }
             
-            if (Main.chest[chestIndex].contents[contentsIndex] == null)
+            Chest chest = Main.chest[chestIndex];
+            if (chest.contents[contentsIndex] == null)
             {
-                Main.chest[chestIndex].contents[contentsIndex] = new Item();
+                chest.contents[contentsIndex] = new Item();
             }
 
-            Main.chest[chestIndex].contents[contentsIndex].SetDefaults(string8);
-            Main.chest[chestIndex].contents[contentsIndex].Stack = stackSize;
+            chest.contents[contentsIndex].SetDefaults(itemName);
+            chest.contents[contentsIndex].Stack = stackSize;
         }
     }
 }

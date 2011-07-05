@@ -87,6 +87,7 @@ namespace Terraria_Server.Commands
                         Commands.Reload(sender.getServer());
                         break;
                     }
+                case (int)Commands.Command.COMMAND_PLAYERS:
                 case (int)Commands.Command.COMMAND_LIST:
                     {
                         if (sender is Player)
@@ -99,11 +100,7 @@ namespace Terraria_Server.Commands
                         }
                         break;
                     }
-                case (int)Commands.Command.COMMAND_PLAYERS:
-                    {
-                        //same stuff, Just making it easier.
-                        goto case (int)Commands.Command.COMMAND_LIST;
-                    }
+                case (int)Commands.Command.CONSOLE_SAY:
                 case (int)Commands.Command.PLAYER_ME:
                     {
                         string Message = Commands.MergeStringArray(commands);
@@ -118,10 +115,6 @@ namespace Terraria_Server.Commands
                             Commands.Me_Say(Message.Remove(0, 4).Trim(), -1); //turn command list into a string and remove "say "
                         }
                         break;
-                    }
-                case (int)Commands.Command.CONSOLE_SAY:
-                    {
-                        goto case (int)Commands.Command.PLAYER_ME;
                     }
                 case (int)Commands.Command.COMMAND_SAVE_ALL:
                     {

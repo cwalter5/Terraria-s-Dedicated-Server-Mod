@@ -21,77 +21,74 @@ namespace Terraria_Server.Messages
         {
             short itemIndex = BitConverter.ToInt16(readBuffer, num);
             num += 2;
-            float num39 = BitConverter.ToSingle(readBuffer, num);
+            float x = BitConverter.ToSingle(readBuffer, num);
             num += 4;
-            float num40 = BitConverter.ToSingle(readBuffer, num);
+            float y = BitConverter.ToSingle(readBuffer, num);
             num += 4;
-            float x3 = BitConverter.ToSingle(readBuffer, num);
+            float vX = BitConverter.ToSingle(readBuffer, num);
             num += 4;
-            float y2 = BitConverter.ToSingle(readBuffer, num);
+            float vY = BitConverter.ToSingle(readBuffer, num);
             num += 4;
             byte stackSize = readBuffer[num++];
 
-            string string4 = Encoding.ASCII.GetString(readBuffer, num, length - num + start);
+            string itemName = Encoding.ASCII.GetString(readBuffer, num, length - num + start);
 
             Item item = Main.item[(int)itemIndex];
             if (Main.netMode == 1)
             {
-                if (string4 == "0")
+                if (itemName == "0")
                 {
                     item.Active = false;
                     return;
                 }
-                item.SetDefaults(string4);
-                item.Stack = (int)stackSize;
-                item.Position.X = num39;
-                item.Position.Y = num40;
-                item.Velocity.X = x3;
-                item.Velocity.Y = y2;
-                item.Active = true;
+
+                ItemSetup(item, itemName, stackSize, x, y, vX, vY);
                 item.Wet = Collision.WetCollision(item.Position, item.Width, item.Height);
+            }
+            else if (itemName == "0")
+            {
+                if (itemIndex < 200)
+                {
+                    item.Active = false;
+                    NetMessage.SendData(21, -1, -1, "", (int)itemIndex);
+                }
             }
             else
             {
-                if (string4 == "0")
+                bool isNewItem = false;
+                if (itemIndex == 200)
                 {
-                    if (itemIndex < 200)
-                    {
-                        item.Active = false;
-                        NetMessage.SendData(21, -1, -1, "", (int)itemIndex);
-                    }
+                    isNewItem = true;
+                    Item newItem = new Item();
+                    newItem.SetDefaults(itemName);
+                    itemIndex = (short)Item.NewItem((int)x, (int)y, newItem.Width, newItem.Height, newItem.Type, (int)stackSize, true);
+                    item = Main.item[(int)itemIndex];
                 }
-                else
+
+                ItemSetup(item, itemName, stackSize, x, y, vX, vY);
+                item.Owner = Main.myPlayer;
+
+                if (isNewItem)
                 {
-                    bool isNewItem = false;
-                    if (itemIndex == 200)
-                    {
-                        isNewItem = true;
-                        Item newItem = new Item();
-                        newItem.SetDefaults(string4);
-                        itemIndex = (short)Item.NewItem((int)num39, (int)num40, newItem.Width, newItem.Height, newItem.Type, (int)stackSize, true);
-                        item = Main.item[(int)itemIndex];
-                    }
-
-                    item.SetDefaults(string4);
-                    item.Stack = (int)stackSize;
-                    item.Position.X = num39;
-                    item.Position.Y = num40;
-                    item.Velocity.X = x3;
-                    item.Velocity.Y = y2;
-                    item.Active = true;
-                    item.Owner = Main.myPlayer;
-
-                    if (isNewItem)
-                    {
-                        NetMessage.SendData(21, -1, -1, "", (int)itemIndex);
-                        item.OwnIgnore = whoAmI;
-                        item.OwnTime = 100;
-                        item.FindOwner((int)itemIndex);
-                        return;
-                    }
-                    NetMessage.SendData(21, -1, whoAmI, "", (int)itemIndex);
+                    NetMessage.SendData(21, -1, -1, "", (int)itemIndex);
+                    item.OwnIgnore = whoAmI;
+                    item.OwnTime = 100;
+                    item.FindOwner((int)itemIndex);
+                    return;
                 }
+                NetMessage.SendData(21, -1, whoAmI, "", (int)itemIndex);
             }
+        }
+
+        private void ItemSetup(Item item, String itemName, int stackSize, float x, float y, float vX, float vY)
+        {
+            item.SetDefaults(itemName);
+            item.Stack = (int)stackSize;
+            item.Position.X = x;
+            item.Position.Y = y;
+            item.Velocity.X = vX;
+            item.Velocity.Y = vY;
+            item.Active = true;
         }
     }
 }

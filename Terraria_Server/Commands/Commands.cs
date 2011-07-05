@@ -170,10 +170,6 @@ namespace Terraria_Server.Commands
             Program.server.notifyOps("Saving World...");
 
             WorldGen.saveWorld(Program.server.getWorld().SavePath, false);
-            while (WorldGen.saveLock)
-            {
-            }
-
             Program.server.notifyOps("Saving Data...");
 
             Program.server.BanList.Save();
@@ -182,14 +178,16 @@ namespace Terraria_Server.Commands
             Program.tConsole.WriteLine("Saving Complete.");
         }
 
-        public static bool getGodMode()
+        public static bool GodMode
         {
-            return Program.server.GodMode;
-        }
-
-        public static void setGodMode(bool GodMode)
-        {
-            Program.server.GodMode = GodMode;
+            get
+            {
+                return Program.server.GodMode;
+            }
+            set
+            {
+            Program.server.GodMode = value;
+                }
         }
 
         public static void ShowHelp(Sender sender, string[] commands = null)
@@ -1003,10 +1001,7 @@ namespace Terraria_Server.Commands
                     {
                         sender.sendMessage("Cannot find player online!.");
                     }
-
-
                     Program.server.notifyOps(sender.getName() + " has kicked " + commands[1], true);
-
                     return;
                 }
             }
@@ -1030,9 +1025,6 @@ namespace Terraria_Server.Commands
                 if (commands[0] != null && commands[0].Length > 0)
                 {
                     Player banee = Program.server.GetPlayerByName(commands[1]);
-
-                    
-
                     return;
                 }
             }

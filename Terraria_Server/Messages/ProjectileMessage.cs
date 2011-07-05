@@ -43,7 +43,7 @@ namespace Terraria_Server.Messages
             
             int projectileIndex = getProjectileIndex(projectileOwner, projectileIdentity);
             Projectile projectile = Main.projectile[projectileIndex];
-            if (!projectile.active || projectile.type != (int)type)
+            if (!projectile.Active || projectile.type != (int)type)
             {
                 projectile.SetDefaults((int)type);
                 if (Main.netMode == 2)
@@ -83,12 +83,12 @@ namespace Terraria_Server.Messages
                 projectile = Main.projectile[i];
                 if (projectile.Owner == owner
                     && projectile.identity == identity
-                    && projectile.active)
+                    && projectile.Active)
                 {
                     return i;
                 }
 
-                if (firstInactive == index && !projectile.active)
+                if (firstInactive == index && !projectile.Active)
                 {
                     firstInactive = i;
                 }

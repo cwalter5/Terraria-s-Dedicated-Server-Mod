@@ -26,8 +26,9 @@ namespace Terraria_Server.Messages
             float itemRotation = BitConverter.ToSingle(readBuffer, num);
             num += 4;
             int itemAnimation = (int)BitConverter.ToInt16(readBuffer, num);
-            Main.players[playerIndex].itemRotation = itemRotation;
-            Main.players[playerIndex].itemAnimation = itemAnimation;
+            Player player = Main.players[playerIndex];
+            player.itemRotation = itemRotation;
+            player.itemAnimation = itemAnimation;
             if (Main.netMode == 2)
             {
                 NetMessage.SendData(41, -1, whoAmI, "", playerIndex);

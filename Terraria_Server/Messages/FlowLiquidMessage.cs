@@ -40,10 +40,12 @@ namespace Terraria_Server.Messages
                     return;
                 }
             }
+
             if (Main.tile[x, y] == null)
             {
                 Main.tile[x, y] = new Tile();
             }
+
             Tile tile = Main.tile[x, y];
             lock (tile)
             {
